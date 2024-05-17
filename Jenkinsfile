@@ -6,17 +6,17 @@ pipeline {
 
         GCR_CREDENTIALS_ID = 'jenkins-week3-project'
 
-        IMAGE_NAME = 'test-build-1'
+        IMAGE_NAME = 'test-build-2'
 
         GCR_URL = 'gcr.io/lbg-mea-18/week3-project-mjj'
 
-        PROJECT_ID = 'lbg-mea-18'
+   //     PROJECT_ID = 'lbg-mea-18'
 
-        CLUSTER_NAME = 'demo-cluster-mjj'
+ //      CLUSTER_NAME = 'demo-cluster-mjj'
 
-        LOCATION = 'europe-west1-b'
+   //     LOCATION = 'europe-west1-b'
 
-        CREDENTIALS_ID = 'k8-week3-project'
+     //   CREDENTIALS_ID = 'k8-week3-project' 
 
     }
 
@@ -42,27 +42,27 @@ pipeline {
 
                     // Build the Docker image
 
-                    sh "docker build -t ${GCR_URL}/${IMAGE_NAME}:latest ."
-
+                    sh "docker build -t ${GCR_URL}/${IMAGE_NAME}:${BUILD_NUMBER} ."
+        
                     // Push the Docker image to GCR
+        
+                    sh "docker push ${GCR_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
 
-                    sh "docker push ${GCR_URL}/${IMAGE_NAME}:latest"
+           //     }
 
-                }
-
-            }
+         //   }
 
         }
 
-        stage('Deploy to GKE') {
+   //     stage('Deploy to GKE') {
 
-            steps {
+     //       steps {
 
-                script {
+       //         script {
 
                     // Deploy to GKE using Jenkins Kubernetes Engine Plugin
 
-                    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'kubernetes/deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+         //           step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'kubernetes/deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
 
                 }
 
