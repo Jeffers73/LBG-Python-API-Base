@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: gcr.io/lbg-mea-18/test-build-1
+        image: gcr.io/lbg-mea-18/week3-project-mjj/test-build-1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
